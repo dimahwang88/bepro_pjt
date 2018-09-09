@@ -1,6 +1,12 @@
 # Intro.
 This repository contains implementation of rendering stiched video sequence onto cylinder-like (180 degrees) surface.
 
+# Modification.
+Texture is mapped onto inner surface of a cylinder. You can play with camera position.
+A, D -> camera pan (left, right)
+W, S -> camera tilt (up, down)
+Z, X -> zoom (in, out)
+
 # Prerequisites.
 Assignment was implemented in Python using PyOpenGL API. Majority of the code contains OpenGL calls, hence the code can be easily rewritten in another programming language. I'm using iOS but code is platform-independent. 
 In order to run the code you need to take several easy installation steps:
