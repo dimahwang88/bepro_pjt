@@ -30,11 +30,4 @@ You can download a video and change the name accordingly. **After that, place th
 # Running the program: 
 From terminal in source folder: **python texturedCylinder_video.py filename**
 
-# Snapshots
-![alt text](https://github.com/dimahwang88/bepro_pjt/blob/master/snapshots/Screenshot%20at%20Aug%2028%2023-19-06.png)
-**You can rotate the surface to left by pressing 'a' on the keyboard:**
-![alt text](https://github.com/dimahwang88/bepro_pjt/blob/master/snapshots/Screenshot%20at%20Aug%2028%2023-19-40.png)
-**or to right by pressing 'd':**
-![alt text](https://github.com/dimahwang88/bepro_pjt/blob/master/snapshots/Screenshot%20at%20Aug%2028%2023-20-03.png)
-
 **You can exit the program by pressing 'Esc' button.**
