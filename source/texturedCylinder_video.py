@@ -50,37 +50,27 @@ class VideoFileTexture( Texture ):
 
 def cylinder():
     PI = 3.14159    
-    resolution  = 0.1
+    resolution  = 0.5
     height = 2.0
-    radius = 1.3
+    radius = 1.0
 
     glPushMatrix()
     glTranslatef(0, -1.1, 0)
 
-    glBegin(GL_TRIANGLE_FAN)
-    glTexCoord2f( 0.5, 0.5 )
-    glVertex3f(0, height, 0)    
-    for i in frange(PI, 0, -resolution):    
-        glTexCoord2f( 0.5 * math.cos(i) + 0.5, 0.5 * math.sin(i) + 0.5 )
-        glVertex3f(radius * math.cos(i), height, radius * math.sin(i))
-    #/* close the loop back to 0 degrees */
-    glTexCoord2f( 0.5, 0.5 )
-    glVertex3f(radius, height, 0)
-    glEnd()
-
-    #/* bottom triangle: note: for is in reverse order */
-    glBegin(GL_TRIANGLE_FAN)
-    glTexCoord2f( 0.5, 0.5 )
-    glVertex3f(0, 0, 0)    
-    for i in frange(0, PI, resolution):
-        #glTexCoord2f( 0.5 * math.cos(i) + 0.5, 0.5 * math.sin(i) + 0.5 );
-        glVertex3f(radius * math.cos(i), 0, radius * math.sin(i));    
-    glEnd()
+    # glBegin(GL_TRIANGLE_FAN)
+    # glTexCoord2f( 0.5, 0.5 )
+    # glVertex3f(0, height, 0)    
+    # for i in frange(2*PI, 0, -resolution):    
+    #     glTexCoord2f( 0.5 * math.cos(i) + 0.5, 0.5 * math.sin(i) + 0.5 )
+    #     glVertex3f(radius * math.cos(i), height, radius * math.sin(i))
+    # #/* close the loop back to 0 degrees */
+    # glTexCoord2f( 0.5, 0.5 )
+    # glVertex3f(radius, height, 0)
+    # glEnd()
 
     glBegin(GL_QUAD_STRIP)
-
-    for i in frange(0, PI, resolution):        
-        tc = ( i / (float)( PI ) )
+    for i in frange(0, 2*PI, resolution):        
+        tc = ( i / (float)( 2*PI ) )
         glTexCoord2f( tc, 0.0 )
         glVertex3f(radius * math.cos(i), 0, radius * math.sin(i))
         glTexCoord2f( tc, 1.0 )
@@ -102,25 +92,31 @@ def display():
     gluPerspective( 10, 1.0, 1.2, 50.0 )
     glMatrixMode( GL_MODELVIEW )
     glLoadIdentity()
-    glTranslatef( 0, 0, -18 )
+    glTranslatef( 0, tilt, zoom)
     glEnable( GL_CULL_FACE )
+    glCullFace(GL_FRONT)
     glEnable( GL_DEPTH_TEST )
-    glRotatef( angle, 0.0, 0.1, 0.0 )
+    
+    glRotatef( pan, 0.0, 0.1, 0.0 )
+    
     cylinder()
     glutSwapBuffers()
 
 def timer( value ):
-    global angle
-    angle += 1;
+    global pan
+    pan += 1;
     glutPostRedisplay()
-    glutTimerFunc( 16, timer, 0 )
+    #glutTimerFunc( 16, timer, 0 )
 
-angle = 0;
+pan = 0
+tilt = 0
+zoom = -8.1
+
 def init():    
     glClearColor(0.0, 0.0, 0.0, 1.0)
     glutDisplayFunc(display)    
     glutKeyboardFunc(keyboard)
-    #glutTimerFunc( 0, timer, 0 );
+    glutTimerFunc( 0, timer, 0 );
     glutIdleFunc(idle)  
 
 def idle():
@@ -144,20 +140,32 @@ def idle():
 def keyboard(key, x, y):    
     # Allow to quit by pressing 'Esc' or 'q'
     ch = key.decode("utf-8")    
-    global angle
+    
+    global pan
+    global tilt
+    global zoom
+    
     if ch == chr(27):
         sys.exit()
     if ch == 'q':
         sys.exit()
-    if ch == 'a':        
-        angle += 1
-        if angle > 35:
-            angle=35
+    if ch == 'a':  
+        pan -= 2     
         glutPostRedisplay()
     if ch == 'd':        
-        angle -= 1
-        if angle < -35:
-            angle = -35
+        pan += 2
+        glutPostRedisplay()
+    if ch == 'w':  
+        tilt -= 0.1
+        glutPostRedisplay()
+    if ch == 's':        
+        tilt += 0.1
+        glutPostRedisplay()
+    if ch == 'z':        
+        zoom += 0.1        
+        glutPostRedisplay()
+    if ch == 'x':        
+        zoom -= 0.1
         glutPostRedisplay()
 
 def main():
