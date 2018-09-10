@@ -50,7 +50,7 @@ class VideoFileTexture( Texture ):
 
 def cylinder():
     PI = 3.14159    
-    resolution  = 0.5
+    resolution  = 0.001
     height = 2.0
     radius = 1.0
 
@@ -110,7 +110,7 @@ def timer( value ):
 
 pan = 0
 tilt = 0
-zoom = -8.1
+zoom = -8.0
 
 def init():    
     glClearColor(0.0, 0.0, 0.0, 1.0)
